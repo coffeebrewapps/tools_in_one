@@ -1,52 +1,52 @@
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
-  --vt-c-white: #ffffff;
-  --vt-c-white-soft: #f8f8f8;
-  --vt-c-white-mute: #f2f2f2;
+  /* color palette: https://colorhunt.co/palette/698269b99b6bf1dbbfaa5656 */
+  --vintage-sage: #698269;
+  --vintage-brown: #B99B6B;
+  --vintage-beige: #F1DBBF;
+  --vintage-maroon: #AA5656;
 
-  --vt-c-black: #181818;
-  --vt-c-black-soft: #222222;
-  --vt-c-black-mute: #282828;
+  /* color palette: https://colorhunt.co/palette/2d4356435b66a76f6feab2a0 */
+  --halloween-navy: #2D4356;
+  --halloween-navy-light: #435B66;
+  --halloween-peach-dark: #A76F6F;
+  --halloween-peach: #EAB2A0;
 
-  --vt-c-indigo: #2c3e50;
-
-  --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
-  --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
-  --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
-  --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
-
-  --vt-c-text-light-1: var(--vt-c-indigo);
-  --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
-  --vt-c-text-dark-1: var(--vt-c-white);
-  --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+  /* color palette: https://colorhunt.co/palette/22a699f2be22f29727f24c3d */
+  --retro-red: #F24C3D;
+  --retro-orange: #F29727;
+  --retro-yellow: #F2BE22;
+  --retro-green: #22A699;
 }
 
 /* semantic color variables for this project */
 :root {
-  --color-background: var(--vt-c-white);
-  --color-background-soft: var(--vt-c-white-soft);
-  --color-background-mute: var(--vt-c-white-mute);
+  --color-background: var(--vintage-beige);
 
-  --color-border: var(--vt-c-divider-light-2);
-  --color-border-hover: var(--vt-c-divider-light-1);
+  --color-border: var(--halloween-peach-dark);
+  --color-border-hover: var(--halloween-peach);
 
-  --color-heading: var(--vt-c-text-light-1);
-  --color-text: var(--vt-c-text-light-1);
+  --color-text: var(--halloween-navy);
+
+  --color-error: var(--retro-red);
+  --color-warning: var(--retro-orange);
+  --color-success: var(--retro-green);
 
   --section-gap: 160px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-background: var(--vt-c-black);
-    --color-background-soft: var(--vt-c-black-soft);
-    --color-background-mute: var(--vt-c-black-mute);
+    --color-background: var(--halloween-navy);
 
-    --color-border: var(--vt-c-divider-dark-2);
-    --color-border-hover: var(--vt-c-divider-dark-1);
+    --color-border: var(--halloween-peach-dark);
+    --color-border-hover: var(--halloween-peach);
 
-    --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--vt-c-text-dark-2);
+    --color-text: var(--vintage-beige);
+
+  --color-error: var(--vintage-maroon);
+  --color-warning: var(--vintage-brown);
+  --color-success: var(--vintage-sage);
   }
 }
 
@@ -66,7 +66,7 @@ body {
   line-height: 1.6;
   font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
     Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

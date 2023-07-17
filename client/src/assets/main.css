@@ -11,13 +11,35 @@
 a,
 .green {
   text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
+  color: var(--halloween-navy-light);
   transition: 0.4s;
+}
+
+.success {
+  color: var(--color-success);
+}
+
+.warning {
+  color: var(--color-warning);
+}
+
+.error {
+  color: var(--color-error);
+}
+
+@media (prefers-color-scheme: dark) {
+  a,
+  .green {
+    text-decoration: none;
+    color: var(--vintage-brown);
+    transition: 0.4s;
+  }
 }
 
 @media (hover: hover) {
   a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
+    color: var(--halloween-navy);
+    background-color: var(--halloween-peach);
   }
 }
 
