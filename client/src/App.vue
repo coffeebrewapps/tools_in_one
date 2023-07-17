@@ -1,6 +1,21 @@
 <script setup>
+import { ref } from 'vue';
 import { RouterLink, RouterView } from 'vue-router';
 import HelloWorld from './components/HelloWorld.vue';
+
+// true: dark, false: light
+const theme = ref(window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+function toggleTheme() {
+  theme.value = !theme.value;
+  if (theme.value) {
+    document.body.classList.toggle('light', false);
+    document.body.classList.toggle('dark', true);
+  } else {
+    document.body.classList.toggle('light', true);
+    document.body.classList.toggle('dark', false);
+  }
+}
 </script>
 
 <template>
@@ -18,6 +33,14 @@ import HelloWorld from './components/HelloWorld.vue';
   </header>
 
   <RouterView />
+
+  <div
+    class="theme-toggle"
+    @click="toggleTheme"
+  >
+    <div v-if="!theme">☀️</div>
+    <div v-if="theme">🌙</div>
+  </div>
 </template>
 
 <style scoped>
@@ -54,6 +77,21 @@ nav a {
 
 nav a:first-of-type {
   border: 0;
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2rem;
+  height: 2rem;
+  text-align: center;
+  border-radius: 50%;
+}
+
+.theme-toggle:hover {
+  cursor: pointer;
+  opacity: 0.5;
 }
 
 @media (min-width: 1024px) {

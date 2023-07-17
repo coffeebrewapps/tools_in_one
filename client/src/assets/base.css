@@ -71,3 +71,29 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+body.light {
+  --color-background: var(--vintage-beige);
+
+  --color-border: var(--halloween-peach-dark);
+  --color-border-hover: var(--halloween-peach);
+
+  --color-text: var(--halloween-navy);
+
+  --color-error: var(--retro-red);
+  --color-warning: var(--retro-orange);
+  --color-success: var(--retro-green);
+}
+
+body.dark {
+  --color-background: var(--halloween-navy);
+
+  --color-border: var(--halloween-peach-dark);
+  --color-border-hover: var(--halloween-peach);
+
+  --color-text: var(--vintage-beige);
+
+  --color-error: var(--vintage-maroon);
+  --color-warning: var(--vintage-brown);
+  --color-success: var(--vintage-sage);
+}
