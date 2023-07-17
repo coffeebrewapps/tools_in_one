@@ -44,9 +44,9 @@
 
     --color-text: var(--vintage-beige);
 
-  --color-error: var(--vintage-maroon);
-  --color-warning: var(--vintage-brown);
-  --color-success: var(--vintage-sage);
+    --color-error: var(--vintage-maroon);
+    --color-warning: var(--vintage-brown);
+    --color-success: var(--vintage-sage);
   }
 }
 
