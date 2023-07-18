@@ -1,11 +1,13 @@
 <script setup>
-import { onBeforeMount, ref, computed } from 'vue';
+import { onBeforeMount, onMounted, onBeforeUnmount, ref, computed } from 'vue';
 import ToolWindow from '@/components/ToolWindow.vue';
 import JsonFormatterView from '@/views/JsonFormatterView.vue';
 import ColorCodesView from '@/views/ColorCodesView.vue';
 import { useWindowsStore } from '@/stores/windows.js';
 
 const windowsStore = useWindowsStore();
+
+const refreshInterval = ref();
 
 const jsonWindow = computed(() => {
   const { found } = windowsStore.findWindow({ id: 'jsonformatter' });
@@ -52,8 +54,21 @@ function activated(activatedWin) {
   });
 }
 
+function autoSave() {
+  console.log(`[${new Date()}] Saving windows state...`);
+  localStorage.setItem('toolsinone.windows', JSON.stringify(windowsStore.windows));
+}
+
 onBeforeMount(() => {
   initWindows();
+});
+
+onMounted(() => {
+  refreshInterval.value = setInterval(autoSave, 60000);
+});
+
+onBeforeUnmount(() => {
+  clearInterval(refreshInterval.value);
 });
 </script>
 
