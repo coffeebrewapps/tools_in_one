@@ -1,21 +1,48 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, onBeforeUnmount, ref, watch } from 'vue';
 import { RouterLink, RouterView } from 'vue-router';
 import HelloWorld from './components/HelloWorld.vue';
 
 // true: dark, false: light
-const theme = ref(window.matchMedia('(prefers-color-scheme: dark)').matches);
+const theme = ref(true);
+
+const refreshInterval = ref();
 
 function toggleTheme() {
   theme.value = !theme.value;
-  if (theme.value) {
+}
+
+watch(theme, (newVal) => {
+  if (newVal) {
     document.body.classList.toggle('light', false);
     document.body.classList.toggle('dark', true);
   } else {
     document.body.classList.toggle('light', true);
     document.body.classList.toggle('dark', false);
   }
+});
+
+function autoSave() {
+  localStorage.setItem('toolsinone.theme', theme.value);
 }
+
+function loadSave() {
+  const existing = localStorage.getItem('toolsinone.theme');
+  if (existing) {
+    theme.value = JSON.parse(existing);
+  } else {
+    theme.value = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+}
+
+onMounted(() => {
+  loadSave();
+  refreshInterval.value = setInterval(autoSave, 60000);
+});
+
+onBeforeUnmount(() => {
+  clearInterval(refreshInterval.value);
+});
 </script>
 
 <template>
