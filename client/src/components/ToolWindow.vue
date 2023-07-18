@@ -1,21 +1,36 @@
 <script setup>
 import { ref, computed } from 'vue';
 import VueDragResize from '@/components/VueDragResize.vue';
+import { useWindowsStore } from '@/stores/windows.js';
+
+const windowsStore = useWindowsStore();
 
 const props = defineProps({
+  id: {
+    type: String,
+    default: null,
+  },
   heading: {
     type: String,
     default: 'Tool',
   },
-  initialX: {
+  w: {
+    type: Number,
+    default: 600,
+  },
+  h: {
+    type: Number,
+    default: 400,
+  },
+  x: {
     type: Number,
     default: 0,
   },
-  initialY: {
+  y: {
     type: Number,
     default: 0,
   },
-  initialZ: {
+  z: {
     type: Number,
     default: 100,
   },
@@ -23,47 +38,100 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  isVisible: {
+    type: Boolean,
+    default: true,
+  },
 });
 
-const emit = defineEmits(['close', 'activated', 'deactivated']);
+const emit = defineEmits([
+  'update:w',
+  'update:h',
+  'update:x',
+  'update:y',
+  'update:z',
+  'update:isActive',
+  'update:isVisible',
+  'activated',
+]);
+
+const currentWindow = ref({
+  id: props.id,
+  x: props.x,
+  y: props.y,
+  z: props.z,
+  w: props.w,
+  h: props.h,
+  active: props.isActive,
+  visible: props.isVisible,
+});
 
 const minWidth = ref(600);
 const minHeight = ref(400);
-const width = ref(600);
-const height = ref(400);
-const top = ref(props.initialY);
-const left = ref(props.initialX);
+
+const width = computed(() => {
+  return props.w;
+});
+
+const height = computed(() => {
+  return props.h;
+});
+
+const top = computed(() => {
+  return props.y;
+});
+
+const left = computed(() => {
+  return props.x;
+});
 
 const bodyStyle = computed(() => {
   return `height: ${height.value - 40}px;`;
 });
 
 function resize(newRect) {
-  width.value = newRect.width;
-  height.value = newRect.height;
-  top.value = newRect.top;
-  left.value = newRect.left;
+  currentWindow.value.x = newRect.left;
+  currentWindow.value.y = newRect.top;
+  currentWindow.value.w = newRect.width;
+  currentWindow.value.h = newRect.height;
+
+  saveWindow();
+
+  emit('update:x', currentWindow.value.x);
+  emit('update:y', currentWindow.value.y);
+  emit('update:w', currentWindow.value.w);
+  emit('update:h', currentWindow.value.h);
 }
 
 function close(event) {
-  emit('close');
-}
-
-function onMouseDown(event) {
-  const tagName = event.target.tagName;
-
-  if (tagName === 'INPUT' || tagName === 'TEXTAREA' || tagName === 'SELECT') {
-    event.stopPropagation();
-    event.target.focus();
-  }
+  currentWindow.value.visible = false;
+  saveWindow();
+  emit('update:isVisible', currentWindow.value.visible);
 }
 
 function activated() {
-  emit('activated');
+  currentWindow.value.z = 101;
+  currentWindow.value.active = true;
+
+  saveWindow();
+
+  emit('update:z', currentWindow.value.z);
+  emit('update:isActive', currentWindow.value.active);
+  emit('activated', currentWindow.value);
 }
 
 function deactivated() {
-  emit('deactivated');
+  currentWindow.value.z = 100;
+  currentWindow.value.active = false;
+
+  saveWindow();
+
+  emit('update:z', currentWindow.value.z);
+  emit('update:isActive', currentWindow.value.active);
+}
+
+function saveWindow() {
+  windowsStore.updateWindow(currentWindow.value);
 }
 </script>
 
@@ -74,7 +142,7 @@ function deactivated() {
     :h="height"
     :x="left"
     :y="top"
-    :z="initialZ"
+    :z="z"
     :minw="minWidth"
     :minh="minHeight"
     :snapToGrid="true"
@@ -83,7 +151,6 @@ function deactivated() {
     :isActive="isActive"
     :isDraggable="true"
     :isResizable="true"
-    @mousedown="onMouseDown"
     @resizing="resize"
     @dragging="resize"
     @activated="activated"
