@@ -59,8 +59,20 @@ function autoSave() {
   localStorage.setItem('toolsinone.windows', JSON.stringify(windowsStore.windows));
 }
 
+function loadSave() {
+  const existing = localStorage.getItem('toolsinone.windows');
+  if (existing) {
+    const saved = JSON.parse(existing);
+    saved.forEach((win) => {
+      windowsStore.addWindow(win);
+    });
+  } else {
+    initWindows();
+  }
+}
+
 onBeforeMount(() => {
-  initWindows();
+  loadSave();
 });
 
 onMounted(() => {
