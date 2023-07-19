@@ -93,6 +93,17 @@ const left = computed(() => {
 
 const collapsed = ref(false);
 
+const toolWindowClass = computed(() => {
+  const classNames = [];
+  classNames.push('tool-window');
+
+  if (collapsed.value) {
+    classNames.push('collapsed');
+  }
+
+  return classNames.join(' ');
+});
+
 function resize(newRect) {
   currentWindow.value.x = newRect.left;
   currentWindow.value.y = newRect.top;
@@ -123,7 +134,9 @@ function close(event) {
 
 function pin(event) {
   currentWindow.value.preventActive = !currentWindow.value.preventActive;
+  currentWindow.value.active = false;
   saveWindow();
+  emit('update:isActive', currentWindow.value.active);
   emit('update:preventActive', currentWindow.value.preventActive);
 }
 
@@ -155,8 +168,7 @@ function saveWindow() {
 
 <template>
   <VueDragResize
-    class="tool-window"
-    :class="collapsed ? 'collapsed' : ''"
+    :content-class="toolWindowClass"
     :w="width"
     :h="height"
     :x="left"

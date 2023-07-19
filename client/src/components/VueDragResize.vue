@@ -186,6 +186,27 @@ const styleMapping = {
   },
 };
 
+const vdrClass = computed(() => {
+  const classNames = [];
+  classNames.push('vdr');
+
+  if (active.value || props.isActive) {
+    classNames.push('active');
+  } else {
+    classNames.push('inactive');
+  }
+
+  if (!props.preventActiveBehavior) {
+    classNames.push('movable');
+  }
+
+  if (props.contentClass) {
+    classNames.push(props.contentClass);
+  }
+
+  return classNames.join(' ');
+});
+
 const positionStyle = computed(() => {
   return {
     top: top.value + 'px',
@@ -800,10 +821,9 @@ watch(() => props.parentH, (newVal) => {
 
 <template>
   <div
-    class="vdr"
     ref="vdr"
+    :class="vdrClass"
     :style="positionStyle"
-    :class="`${(active || isActive) ? 'active' : 'inactive'} ${contentClass ? contentClass: ''}`"
   >
     <!-- Reference: https://github.com/kirillmurashov/vue-drag-resize/issues/181 -->
     <div
@@ -837,7 +857,7 @@ watch(() => props.parentH, (newVal) => {
   box-sizing: border-box;
 }
 
-.vdr .header:hover {
+.vdr.movable .header:hover {
   cursor: move;
 }
 
