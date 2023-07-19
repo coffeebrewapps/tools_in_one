@@ -42,6 +42,10 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  preventActive: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const emit = defineEmits([
@@ -52,6 +56,7 @@ const emit = defineEmits([
   'update:z',
   'update:isActive',
   'update:isVisible',
+  'update:preventActive',
   'activated',
 ]);
 
@@ -64,6 +69,7 @@ const currentWindow = ref({
   h: props.h,
   active: props.isActive,
   visible: props.isVisible,
+  preventActive: props.preventActive,
 });
 
 const minWidth = ref(600);
@@ -85,10 +91,6 @@ const left = computed(() => {
   return props.x;
 });
 
-const bodyStyle = computed(() => {
-  return `height: ${height.value - 40}px;`;
-});
-
 function resize(newRect) {
   currentWindow.value.x = newRect.left;
   currentWindow.value.y = newRect.top;
@@ -107,6 +109,12 @@ function close(event) {
   currentWindow.value.visible = false;
   saveWindow();
   emit('update:isVisible', currentWindow.value.visible);
+}
+
+function pin(event) {
+  currentWindow.value.preventActive = !currentWindow.value.preventActive;
+  saveWindow();
+  emit('update:preventActive', currentWindow.value.preventActive);
 }
 
 function activated() {
@@ -151,6 +159,7 @@ function saveWindow() {
     :isActive="isActive"
     :isDraggable="true"
     :isResizable="true"
+    :preventActiveBehavior="preventActive"
     @resizing="resize"
     @dragging="resize"
     @activated="activated"
@@ -169,13 +178,17 @@ function saveWindow() {
             class="action"
             @click="close"
           >✖️</div>
+
+          <div
+            class="action"
+            @click="pin"
+          >📌</div>
         </div>
       </div>
     </template>
 
     <div
       class="body"
-      :style="bodyStyle"
     >
       <slot name="body"/>
     </div>
@@ -217,6 +230,7 @@ function saveWindow() {
 
 .tool-window .body {
   padding: 1rem;
+  height: 100%;
   overflow: auto;
 }
 </style>

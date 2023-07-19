@@ -27,6 +27,7 @@ function activated() {
     v-model:h="colorWindow.h"
     v-model:is-active="colorWindow.active"
     v-model:is-visible="colorWindow.visible"
+    v-model:prevent-active="colorWindow.preventActive"
     @activated="activated"
   >
     <template #body>

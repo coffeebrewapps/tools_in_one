@@ -48,6 +48,7 @@ const json = computed(() => {
     v-model:h="jsonWindow.h"
     v-model:is-active="jsonWindow.active"
     v-model:is-visible="jsonWindow.visible"
+    v-model:prevent-active="jsonWindow.preventActive"
     @activated="activated"
   >
     <template #body>

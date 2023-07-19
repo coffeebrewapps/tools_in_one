@@ -42,6 +42,7 @@ function activated() {
     v-model:h="currentWindow.h"
     v-model:is-active="currentWindow.active"
     v-model:is-visible="currentWindow.visible"
+    v-model:prevent-active="currentWindow.preventActive"
     @activated="activated"
   >
     <template #body>
