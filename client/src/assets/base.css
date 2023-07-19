@@ -97,3 +97,23 @@ body.dark {
   --color-warning: var(--vintage-brown);
   --color-success: var(--vintage-sage);
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-hover);
+}
