@@ -27,6 +27,15 @@ a,
   color: var(--color-error);
 }
 
+.btn {
+  padding: 0.5rem;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  outline: 0;
+}
+
 @media (prefers-color-scheme: dark) {
   a,
   .green {
@@ -40,6 +49,12 @@ a,
   a:hover {
     color: var(--halloween-navy);
     background-color: var(--halloween-peach);
+  }
+
+  .btn:hover {
+    cursor: pointer;
+    background-color: var(--color-border-hover);
+    color: var(--halloween-navy);
   }
 }
 
