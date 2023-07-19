@@ -91,6 +91,8 @@ const left = computed(() => {
   return props.x;
 });
 
+const collapsed = ref(false);
+
 function resize(newRect) {
   currentWindow.value.x = newRect.left;
   currentWindow.value.y = newRect.top;
@@ -103,6 +105,14 @@ function resize(newRect) {
   emit('update:y', currentWindow.value.y);
   emit('update:w', currentWindow.value.w);
   emit('update:h', currentWindow.value.h);
+}
+
+function hide(event) {
+  collapsed.value = true;
+}
+
+function show(event) {
+  collapsed.value = false;
 }
 
 function close(event) {
@@ -146,6 +156,7 @@ function saveWindow() {
 <template>
   <VueDragResize
     class="tool-window"
+    :class="collapsed ? 'collapsed' : ''"
     :w="width"
     :h="height"
     :x="left"
@@ -175,6 +186,17 @@ function saveWindow() {
 
         <div class="actions">
           <div
+            v-if="!collapsed"
+            class="action"
+            @click="hide"
+          >➖</div>
+
+          <div
+            v-if="collapsed"
+            class="action"
+            @click="show"
+          >➕</div>
+          <div
             class="action"
             @click="close"
           >✖️</div>
@@ -202,6 +224,11 @@ function saveWindow() {
   background-color: var(--color-background);
   border: 1px solid var(--color-border);
   border-radius: 4px;
+}
+
+.tool-window.collapsed {
+  height: 40px;
+  overflow: hidden;
 }
 
 .tool-window .heading {
