@@ -118,66 +118,79 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <main>
-    <ul>
-      <li>
+  <div class="wrapper">
+    <main>
+      <JsonFormatterView
+        v-if="jsonWindow.visible"
+        @activated="activated"
+      >
+      </JsonFormatterView>
+
+      <ColorCodesView
+        v-if="colorWindow.visible"
+        @activated="activated"
+      >
+      </ColorCodesView>
+
+      <HtmlFormatterView
+        v-if="htmlWindow.visible"
+        @activated="activated"
+      >
+      </HtmlFormatterView>
+
+      <CalculatorView
+        v-if="calcWindow.visible"
+        @activated="activated"
+      >
+      </CalculatorView>
+
+      <div class="">
+        All your tools in one.
+      </div>
+    </main>
+
+    <header>
+      <nav>
         <a @click="jsonWindow.visible = true">
-          JSON Formatter
+          📃 JSON Formatter
         </a>
-      </li>
 
-      <li>
         <a @click="colorWindow.visible = true">
-          Color Code
+          📃 Color Code
         </a>
-      </li>
 
-      <li>
         <a @click="htmlWindow.visible = true">
-          HTML Formatter
+          📃 HTML Formatter
         </a>
-      </li>
 
-      <li>
         <a @click="calcWindow.visible = true">
-          Calculator
+          📃 Calculator
         </a>
-      </li>
-    </ul>
-
-    <JsonFormatterView
-      v-if="jsonWindow.visible"
-      @activated="activated"
-    >
-    </JsonFormatterView>
-
-    <ColorCodesView
-      v-if="colorWindow.visible"
-      @activated="activated"
-    >
-    </ColorCodesView>
-
-    <HtmlFormatterView
-      v-if="htmlWindow.visible"
-      @activated="activated"
-    >
-    </HtmlFormatterView>
-
-    <CalculatorView
-      v-if="calcWindow.visible"
-      @activated="activated"
-    >
-    </CalculatorView>
-  </main>
+      </nav>
+    </header>
+  </div>
 </template>
 
 <style scoped>
-.bordered {
-  border: 1px solid var(--color-border);
+.wrapper header {
+  position: absolute;
+  top: 2rem;
+  right: 0;
+  width: 120px;
 }
 
-.bordered:hover {
-  border: 1px solid var(--color-border-hover);
+nav {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+nav a {
+  display: inline-block;
+}
+
+nav a:hover {
+  cursor: pointer;
 }
 
 @media (min-width: 1024px) {
@@ -185,6 +198,15 @@ onBeforeUnmount(() => {
     min-height: 100vh;
     display: flex;
     align-items: center;
+    padding: 0;
+  }
+
+  nav {
+    text-align: left;
+    margin-top: 1rem;
+    margin-left: -1rem;
+    font-size: 0.8rem;
+    padding: 1rem 0;
   }
 }
 </style>
