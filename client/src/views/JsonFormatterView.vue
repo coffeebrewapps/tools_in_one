@@ -24,7 +24,7 @@ const jsonData = computed(() => {
   if (rawJson.value) {
     return JSON.parse(rawJson.value);
   } else {
-    return;
+    return null;
   }
 });
 
