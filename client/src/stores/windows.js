@@ -39,5 +39,22 @@ export const useWindowsStore = defineStore('windows', () => {
     }
   }
 
-  return { windows, addWindow, updateWindow, findWindow, removeWindow };
+  function showWindow(win) {
+    const { index, found } = findWindow(win);
+
+    if (index > -1) {
+      windows.value.forEach((win, i) => {
+        if (i !== index) {
+          win.z = 100;
+        }
+      });
+
+      found.visible = true;
+      found.x = 0;
+      found.y = 0;
+      found.z = 101;
+    }
+  }
+
+  return { windows, addWindow, updateWindow, findWindow, removeWindow, showWindow };
 });

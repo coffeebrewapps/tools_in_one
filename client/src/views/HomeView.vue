@@ -39,7 +39,8 @@ const availWindows = [
     w: 600,
     h: 400,
     active: false,
-    visible: true,
+    visible: false,
+    preventActive: false,
   },
 
   {
@@ -50,7 +51,8 @@ const availWindows = [
     w: 600,
     h: 400,
     active: false,
-    visible: true,
+    visible: false,
+    preventActive: false,
   },
 
   {
@@ -61,7 +63,8 @@ const availWindows = [
     w: 600,
     h: 400,
     active: false,
-    visible: true,
+    visible: false,
+    preventActive: false,
   },
 
   {
@@ -72,9 +75,14 @@ const availWindows = [
     w: 600,
     h: 400,
     active: false,
-    visible: true,
+    visible: false,
+    preventActive: false,
   },
 ];
+
+function showWindow(id) {
+  windowsStore.showWindow({ id });
+}
 
 function initWindows() {
   availWindows.forEach((win) => {
@@ -104,6 +112,9 @@ function loadSave() {
     const saved = JSON.parse(existing);
     saved.forEach((win) => {
       windowsStore.addWindow(win);
+      if (win.visible) {
+        windowsStore.showWindow(win);
+      }
     });
 
     availWindows.forEach((win) => {
@@ -180,19 +191,19 @@ onBeforeUnmount(() => {
 
     <header>
       <nav>
-        <a @click="jsonWindow.visible = true">
+        <a @click="showWindow('jsonformatter')">
           📃 JSON Formatter
         </a>
 
-        <a @click="colorWindow.visible = true">
+        <a @click="showWindow('colorcodes')">
           📃 Color Code
         </a>
 
-        <a @click="htmlWindow.visible = true">
+        <a @click="showWindow('htmlformatter')">
           📃 HTML Formatter
         </a>
 
-        <a @click="calcWindow.visible = true">
+        <a @click="showWindow('calculator')">
           📃 Calculator
         </a>
       </nav>

@@ -215,6 +215,7 @@ function saveWindow() {
 
           <div
             class="action"
+            :class="preventActive ? 'pinned' : ''"
             @click="pin"
           >📌</div>
         </div>
@@ -260,6 +261,10 @@ function saveWindow() {
 
 .tool-window .heading .actions .action:hover {
   cursor: pointer;
+}
+
+.tool-window .heading .actions .action.pinned {
+  transform: rotate(-45deg);
 }
 
 .tool-window .heading .text {
