@@ -144,8 +144,16 @@ onBeforeUnmount(() => {
       >
       </CalculatorView>
 
-      <div class="">
-        All your tools in one.
+      <div class="content">
+        <a
+          href="https://www.flaticon.com/free-icons/hammer"
+          title="Hammer icons created by Freepik - Flaticon"
+          alt="Hammer icons created by Freepik - Flaticon"
+        >
+          <img class="icon" src="/hammer.png"/>
+        </a>
+
+        <div>All your tools in one.</div>
       </div>
     </main>
 
@@ -172,6 +180,20 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
+.content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.content a:hover {
+  background-color: initial;
+}
+
+.content .icon {
+  width: 1.5rem;
+}
+
 .wrapper header {
   position: absolute;
   top: 2rem;
