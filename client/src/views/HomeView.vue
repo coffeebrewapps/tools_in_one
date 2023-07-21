@@ -5,6 +5,7 @@ import JsonFormatterView from '@/views/JsonFormatterView.vue';
 import HtmlFormatterView from '@/views/HtmlFormatterView.vue';
 import ColorCodesView from '@/views/ColorCodesView.vue';
 import CalculatorView from '@/views/CalculatorView.vue';
+import UuidView from '@/views/UuidView.vue';
 import { useWindowsStore } from '@/stores/windows.js';
 
 const windowsStore = useWindowsStore();
@@ -28,6 +29,11 @@ const htmlWindow = computed(() => {
 
 const calcWindow = computed(() => {
   const { found } = windowsStore.findWindow({ id: 'calculator' });
+  return found;
+});
+
+const uuidWindow = computed(() => {
+  const { found } = windowsStore.findWindow({ id: 'uuidgenerator' });
   return found;
 });
 
@@ -72,6 +78,18 @@ const availWindows = [
     id: 'calculator',
     x: 600,
     y: 440,
+    z: 100,
+    w: 600,
+    h: 400,
+    active: false,
+    visible: false,
+    preventActive: false,
+  },
+
+  {
+    id: 'uuidgenerator',
+    x: 0,
+    y: 880,
     z: 100,
     w: 600,
     h: 400,
@@ -169,6 +187,12 @@ onBeforeUnmount(() => {
       >
       </CalculatorView>
 
+      <UuidView
+        v-if="uuidWindow.visible"
+        @activated="activated"
+      >
+      </UuidView>
+
       <div class="wrapper">
         <div class="content">
           <img class="icon" src="/hammer.png"/>
@@ -202,6 +226,10 @@ onBeforeUnmount(() => {
 
         <a @click="showWindow('calculator')">
           📃 Calculator
+        </a>
+
+        <a @click="showWindow('uuidgenerator')">
+          📃 UUID Generator
         </a>
       </nav>
     </header>
