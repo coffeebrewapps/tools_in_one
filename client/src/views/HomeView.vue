@@ -30,8 +30,8 @@ const calcWindow = computed(() => {
   return found;
 });
 
-function initWindows() {
-  windowsStore.addWindow({
+const availWindows = [
+  {
     id: 'jsonformatter',
     x: 0,
     y: 0,
@@ -40,9 +40,9 @@ function initWindows() {
     h: 400,
     active: false,
     visible: true,
-  });
+  },
 
-  windowsStore.addWindow({
+  {
     id: 'colorcodes',
     x: 600,
     y: 0,
@@ -51,9 +51,9 @@ function initWindows() {
     h: 400,
     active: false,
     visible: true,
-  });
+  },
 
-  windowsStore.addWindow({
+  {
     id: 'htmlformatter',
     x: 0,
     y: 440,
@@ -62,9 +62,9 @@ function initWindows() {
     h: 400,
     active: false,
     visible: true,
-  });
+  },
 
-  windowsStore.addWindow({
+  {
     id: 'calculator',
     x: 600,
     y: 440,
@@ -73,6 +73,12 @@ function initWindows() {
     h: 400,
     active: false,
     visible: true,
+  },
+];
+
+function initWindows() {
+  availWindows.forEach((win) => {
+    windowsStore.addWindow(win);
   });
 }
 
@@ -98,6 +104,13 @@ function loadSave() {
     const saved = JSON.parse(existing);
     saved.forEach((win) => {
       windowsStore.addWindow(win);
+    });
+
+    availWindows.forEach((win) => {
+      const { found } = windowsStore.findWindow(win);
+      if (!found) {
+        windowsStore.addWindow(win);
+      }
     });
   } else {
     initWindows();
