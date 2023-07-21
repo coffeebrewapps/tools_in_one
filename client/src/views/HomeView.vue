@@ -131,7 +131,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="wrapper">
+  <div class="container">
     <main>
       <JsonFormatterView
         v-if="jsonWindow.visible"
@@ -157,16 +157,24 @@ onBeforeUnmount(() => {
       >
       </CalculatorView>
 
-      <div class="content">
-        <a
-          href="https://www.flaticon.com/free-icons/hammer"
-          title="Hammer icons created by Freepik - Flaticon"
-          alt="Hammer icons created by Freepik - Flaticon"
-        >
-          <img class="icon" src="/hammer.png"/>
-        </a>
+      <div class="wrapper">
+        <div class="content">
+          <a
+            href="https://www.flaticon.com/free-icons/hammer"
+            title="Hammer icons created by Freepik - Flaticon"
+            alt="Hammer icons created by Freepik - Flaticon"
+          >
+            <img class="icon" src="/hammer.png"/>
+          </a>
 
-        <div>All your tools in one.</div>
+          <div>All your tools in one.</div>
+        </div>
+
+        <div class="links">
+          <a href="https://github.com/coffeebrewapps/tools_in_one/issues/1" target="_blank">Feature request</a>
+          <div>|</div>
+          <a href="https://www.buymeacoffee.com/gohkhoonhiang" target="_blank">Support dev</a>
+        </div>
       </div>
     </main>
 
@@ -193,50 +201,63 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-.content {
+.container main .wrapper {
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  place-content: center;
+}
+
+.container main .wrapper .content {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.content a:hover {
+.container main .wrapper .content a:hover {
   background-color: initial;
 }
 
-.content .icon {
+.container main .wrapper .content .icon {
   width: 1.5rem;
 }
 
-.wrapper header {
+.container main .wrapper .links {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.container header {
   position: absolute;
   top: 2rem;
   right: 0;
   width: 120px;
 }
 
-nav {
+.container header nav {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
-nav a {
+.container header nav a {
   display: inline-block;
 }
 
-nav a:hover {
+.container header nav a:hover {
   cursor: pointer;
 }
 
 @media (min-width: 1024px) {
-  main {
+  .container main {
     min-height: 100vh;
     display: flex;
     align-items: center;
     padding: 0;
   }
 
-  nav {
+  .container header nav {
     text-align: left;
     margin-top: 1rem;
     margin-left: -1rem;
