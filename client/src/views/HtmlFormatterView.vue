@@ -54,7 +54,6 @@ function copyCode() {
   setTimeout(() => showTooltip.value = false, 3000);
 }
 
-
 onMounted(() => {
   Prism.highlightAll(false);
 });
