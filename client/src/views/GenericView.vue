@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 import ToolWindow from '@/components/ToolWindow.vue';
 import { useWindowsStore } from '@/stores/windows.js';
 
