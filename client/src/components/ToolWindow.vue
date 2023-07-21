@@ -118,21 +118,21 @@ function resize(newRect) {
   emit('update:h', currentWindow.value.h);
 }
 
-function hide(event) {
+function hide() {
   collapsed.value = true;
 }
 
-function show(event) {
+function show() {
   collapsed.value = false;
 }
 
-function close(event) {
+function close() {
   currentWindow.value.visible = false;
   saveWindow();
   emit('update:isVisible', currentWindow.value.visible);
 }
 
-function pin(event) {
+function pin() {
   currentWindow.value.preventActive = !currentWindow.value.preventActive;
   currentWindow.value.active = false;
   saveWindow();
