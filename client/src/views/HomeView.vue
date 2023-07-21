@@ -4,6 +4,7 @@ import ToolWindow from '@/components/ToolWindow.vue';
 import JsonFormatterView from '@/views/JsonFormatterView.vue';
 import HtmlFormatterView from '@/views/HtmlFormatterView.vue';
 import ColorCodesView from '@/views/ColorCodesView.vue';
+import CalculatorView from '@/views/CalculatorView.vue';
 import { useWindowsStore } from '@/stores/windows.js';
 
 const windowsStore = useWindowsStore();
@@ -22,6 +23,11 @@ const colorWindow = computed(() => {
 
 const htmlWindow = computed(() => {
   const { found } = windowsStore.findWindow({ id: 'htmlformatter' });
+  return found;
+});
+
+const calcWindow = computed(() => {
+  const { found } = windowsStore.findWindow({ id: 'calculator' });
   return found;
 });
 
@@ -51,6 +57,17 @@ function initWindows() {
   windowsStore.addWindow({
     id: 'htmlformatter',
     x: 0,
+    y: 440,
+    z: 100,
+    w: 600,
+    h: 400,
+    active: false,
+    visible: true,
+  });
+
+  windowsStore.addWindow({
+    id: 'calculator',
+    x: 600,
     y: 440,
     z: 100,
     w: 600,
@@ -121,6 +138,12 @@ onBeforeUnmount(() => {
           HTML Formatter
         </a>
       </li>
+
+      <li>
+        <a @click="calcWindow.visible = true">
+          Calculator
+        </a>
+      </li>
     </ul>
 
     <JsonFormatterView
@@ -140,6 +163,12 @@ onBeforeUnmount(() => {
       @activated="activated"
     >
     </HtmlFormatterView>
+
+    <CalculatorView
+      v-if="calcWindow.visible"
+      @activated="activated"
+    >
+    </CalculatorView>
   </main>
 </template>
 
