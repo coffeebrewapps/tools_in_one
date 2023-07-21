@@ -174,6 +174,7 @@ onBeforeUnmount(() => {
             href="https://www.flaticon.com/free-icons/hammer"
             title="Hammer icons created by Freepik - Flaticon"
             alt="Hammer icons created by Freepik - Flaticon"
+            target="_blank"
           >
             <img class="icon" src="/hammer.png"/>
           </a>
