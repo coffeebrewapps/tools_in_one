@@ -267,12 +267,12 @@ onBeforeUnmount(() => {
             <button
               class="btn"
               @click="copyColor(selectedHex)"
-            >📋</button>
+            ><img src="/clipboard.png" /></button>
 
             <button
               class="btn"
               @click="saveColor"
-            >💾</button>
+            ><img src="/save.png" /></button>
           </div>
         </div> <!-- picker -->
 
@@ -302,7 +302,7 @@ onBeforeUnmount(() => {
               <button
                 class="btn"
                 @click="copyColor(`${selectedRed},${selectedGreen},${selectedBlue}`)"
-              >📋</button>
+              ><img src="/clipboard.png" /></button>
             </div>
           </div>
 
@@ -331,7 +331,7 @@ onBeforeUnmount(() => {
               <button
                 class="btn"
                 @click="copyColor(`${selectedHue},${selectedSat},${selectedLum}`)"
-              >📋</button>
+              ><img src="/clipboard.png" /></button>
             </div>
           </div> <!-- fields -->
         </div> <!-- displays -->
@@ -378,7 +378,7 @@ onBeforeUnmount(() => {
             <div
               class="color-action"
               @click="unsaveColor(color)"
-            >❌</div>
+            ><img src="/cancel.png" /></div>
           </div>
         </div>
       </div>
@@ -419,6 +419,7 @@ onBeforeUnmount(() => {
 
 .input-container .picker .actions {
   display: flex;
+  align-items: center;
   gap: 4px;
 }
 
@@ -572,6 +573,15 @@ onBeforeUnmount(() => {
 
 .colors-container .colors .color .color-action:hover {
   cursor: pointer;
-  font-size: 0.8rem;
+}
+
+.colors-container .colors .color .color-action img {
+  width: 1rem;
+  height: 1rem;
+  opacity: 0.8;
+}
+
+.colors-container .colors .color .color-action:hover img {
+  opacity: 1;
 }
 </style>

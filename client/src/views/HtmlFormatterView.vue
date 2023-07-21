@@ -98,7 +98,7 @@ onMounted(() => {
             v-if="html"
             class="btn"
             @click="copyCode"
-          >📋</button>
+          ><img src="/clipboard.png" /></button>
 
           <div
             :class="tooltipClass"

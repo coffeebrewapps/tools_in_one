@@ -201,23 +201,24 @@ function saveWindow() {
             v-if="!collapsed"
             class="action"
             @click="hide"
-          >➖</div>
+          ><img src="/minus.png" /></div>
 
           <div
             v-if="collapsed"
             class="action"
             @click="show"
-          >➕</div>
+          ><img src="/plus.png" /></div>
+
           <div
             class="action"
             @click="close"
-          >✖️</div>
+          ><img src="/cancel.png" /></div>
 
           <div
             class="action"
             :class="preventActive ? 'pinned' : ''"
             @click="pin"
-          >📌</div>
+          ><img src="/pin.png" /></div>
         </div>
       </div>
     </template>
@@ -255,16 +256,26 @@ function saveWindow() {
 .tool-window .heading .actions {
   display: flex;
   align-items: center;
+  gap: 6px;
   font-size: 0.8rem;
   z-index: 1000;
 }
 
+.tool-window .heading .actions .action {
+  opacity: 0.6;
+}
+
 .tool-window .heading .actions .action:hover {
   cursor: pointer;
+  opacity: 1;
 }
 
 .tool-window .heading .actions .action.pinned {
   transform: rotate(-45deg);
+}
+
+.tool-window .heading .actions .action img {
+  width: 0.8rem;
 }
 
 .tool-window .heading .text {

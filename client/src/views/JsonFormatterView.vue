@@ -102,7 +102,7 @@ onMounted(() => {
             v-if="json"
             class="btn"
             @click="copyCode"
-          >📋</button>
+          ><img src="/clipboard.png" /></button>
 
           <div
             :class="tooltipClass"

@@ -128,13 +128,13 @@ onBeforeUnmount(() => {
               v-if="result"
               class="btn"
               @click="copyResult"
-            >📋</button>
+            ><img src="/clipboard.png" /></button>
 
             <button
               v-if="result"
               class="btn"
               @click="saveResult"
-            >💾</button>
+            ><img src="/save.png" /></button>
           </div>
 
           <div
@@ -176,7 +176,7 @@ onBeforeUnmount(() => {
               <div
                 class="action"
                 @click="unsaveResult(i)"
-              >❌</div>
+              ><img src="/cancel.png" /></div>
             </div> <!-- result -->
           </div> <!-- results -->
 
@@ -229,6 +229,8 @@ onBeforeUnmount(() => {
   position: absolute;
   top: 2rem;
   right: 1rem;
+  display: flex;
+  gap: 4px;
 }
 
 .body .output-field .tooltip {
@@ -302,7 +304,16 @@ onBeforeUnmount(() => {
 
 .body .history .results .result .action:hover {
   cursor: pointer;
-  font-size: 0.8rem;
+}
+
+.body .history .results .result .action img {
+  width: 1rem;
+  height: 1rem;
+  opacity: 0.6;
+}
+
+.body .history .results .result .action:hover img {
+  opacity: 1;
 }
 
 .body .history .tooltip {
