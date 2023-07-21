@@ -1,6 +1,5 @@
 <script setup>
 import { onBeforeMount, onMounted, onBeforeUnmount, ref, computed } from 'vue';
-import ToolWindow from '@/components/ToolWindow.vue';
 import JsonFormatterView from '@/views/JsonFormatterView.vue';
 import HtmlFormatterView from '@/views/HtmlFormatterView.vue';
 import ColorCodesView from '@/views/ColorCodesView.vue';
