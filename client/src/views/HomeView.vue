@@ -1,5 +1,6 @@
 <script setup>
 import { onBeforeMount, onMounted, onBeforeUnmount, ref, computed } from 'vue';
+import { RouterLink } from 'vue-router';
 import JsonFormatterView from '@/views/JsonFormatterView.vue';
 import HtmlFormatterView from '@/views/HtmlFormatterView.vue';
 import ColorCodesView from '@/views/ColorCodesView.vue';
@@ -170,14 +171,7 @@ onBeforeUnmount(() => {
 
       <div class="wrapper">
         <div class="content">
-          <a
-            href="https://www.flaticon.com/free-icons/hammer"
-            title="Hammer icons created by Freepik - Flaticon"
-            alt="Hammer icons created by Freepik - Flaticon"
-            target="_blank"
-          >
-            <img class="icon" src="/hammer.png"/>
-          </a>
+          <img class="icon" src="/hammer.png"/>
 
           <div>All your tools in one.</div>
         </div>
@@ -186,6 +180,8 @@ onBeforeUnmount(() => {
           <a href="https://github.com/coffeebrewapps/tools_in_one/issues/1" target="_blank">Feature request</a>
           <div>|</div>
           <a href="https://www.buymeacoffee.com/gohkhoonhiang" target="_blank">Support dev</a>
+          <div>|</div>
+          <RouterLink to="/credits">Credits</RouterLink>
         </div>
       </div>
     </main>
