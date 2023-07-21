@@ -19,7 +19,11 @@ function activated() {
 const input = ref();
 const result = computed(() => {
   if (input.value) {
-    return eval(input.value);
+    try {
+      return eval(input.value);
+    } catch (err) {
+      return null;
+    }
   } else {
     return null;
   }

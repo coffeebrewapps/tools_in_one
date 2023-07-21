@@ -27,12 +27,16 @@ const htmlData = computed(() => {
 
 const html = computed(() => {
   if (htmlData.value) {
-    return prettyPrint(
-      htmlData.value,
-      {
-        indent_size: parseInt(spacing.value),
-      }
-    );
+    try {
+      return prettyPrint(
+        htmlData.value,
+        {
+          indent_size: parseInt(spacing.value),
+        }
+      );
+    } catch (err) {
+      return '';
+    }
   } else {
     return '';
   }

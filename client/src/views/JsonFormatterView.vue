@@ -22,7 +22,11 @@ const rawJson = ref();
 
 const jsonData = computed(() => {
   if (rawJson.value) {
-    return JSON.parse(rawJson.value);
+    try {
+      return JSON.parse(rawJson.value);
+    } catch (err) {
+      return null;
+    }
   } else {
     return null;
   }
