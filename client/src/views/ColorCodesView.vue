@@ -25,13 +25,6 @@ const selectedRed = ref(0);
 const selectedGreen = ref(0);
 const selectedBlue = ref(0);
 
-function updateFromRgb(r, g, b) {
-  selectedRed.value = r;
-  selectedGreen.value = g;
-  selectedBlue.value = b;
-  selectedHex.value = rgbToHex(r, g, b);
-}
-
 const colorCopiedMessageClass = computed(() => {
   if (colorCopied.value) {
     return 'color-copied-msg show';
@@ -207,7 +200,7 @@ function rgbToHsl(r, g, b) {
   return [
     Math.round(h),
     Math.round(s * 100),
-    Math.round(l * 100)
+    Math.round(l * 100),
   ];
 }
 
