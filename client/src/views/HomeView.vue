@@ -2,6 +2,7 @@
 import { onBeforeMount, onMounted, onBeforeUnmount, ref, computed } from 'vue';
 import ToolWindow from '@/components/ToolWindow.vue';
 import JsonFormatterView from '@/views/JsonFormatterView.vue';
+import HtmlFormatterView from '@/views/HtmlFormatterView.vue';
 import ColorCodesView from '@/views/ColorCodesView.vue';
 import { useWindowsStore } from '@/stores/windows.js';
 
@@ -16,6 +17,11 @@ const jsonWindow = computed(() => {
 
 const colorWindow = computed(() => {
   const { found } = windowsStore.findWindow({ id: 'colorcodes' });
+  return found;
+});
+
+const htmlWindow = computed(() => {
+  const { found } = windowsStore.findWindow({ id: 'htmlformatter' });
   return found;
 });
 
@@ -35,6 +41,17 @@ function initWindows() {
     id: 'colorcodes',
     x: 600,
     y: 0,
+    z: 100,
+    w: 600,
+    h: 400,
+    active: false,
+    visible: true,
+  });
+
+  windowsStore.addWindow({
+    id: 'htmlformatter',
+    x: 0,
+    y: 440,
     z: 100,
     w: 600,
     h: 400,
@@ -98,6 +115,12 @@ onBeforeUnmount(() => {
           Color Code
         </a>
       </li>
+
+      <li>
+        <a @click="htmlWindow.visible = true">
+          HTML Formatter
+        </a>
+      </li>
     </ul>
 
     <JsonFormatterView
@@ -111,6 +134,12 @@ onBeforeUnmount(() => {
       @activated="activated"
     >
     </ColorCodesView>
+
+    <HtmlFormatterView
+      v-if="htmlWindow.visible"
+      @activated="activated"
+    >
+    </HtmlFormatterView>
   </main>
 </template>
 
