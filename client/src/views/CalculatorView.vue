@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { onMounted, onBeforeUnmount, ref, computed } from 'vue';
 import ToolWindow from '@/components/ToolWindow.vue';
 import { useWindowsStore } from '@/stores/windows.js';
 
@@ -17,6 +17,7 @@ function activated() {
 }
 
 const input = ref();
+const savedResults = ref([]);
 const result = computed(() => {
   if (input.value) {
     try {
@@ -29,7 +30,15 @@ const result = computed(() => {
   }
 });
 
+function saveResult() {
+  savedResults.value.push({
+    input: input.value,
+    result: result.value,
+  });
+}
+
 const showTooltip = ref(false);
+const showHistoryTooltip = ref(false);
 
 const tooltipClass = computed(() => {
   if (showTooltip.value) {
@@ -39,11 +48,53 @@ const tooltipClass = computed(() => {
   }
 });
 
+const historyTooltipClass = computed(() => {
+  if (showHistoryTooltip.value) {
+    return 'tooltip show';
+  } else {
+    return 'tooltip';
+  }
+});
+
+function copyText(text) {
+  navigator.clipboard.writeText(text);
+  showHistoryTooltip.value = true;
+  setTimeout(() => showHistoryTooltip.value = false, 3000);
+}
+
 function copyResult() {
   navigator.clipboard.writeText(result.value);
   showTooltip.value = true;
   setTimeout(() => showTooltip.value = false, 3000);
 }
+
+function unsaveResult(i) {
+  savedResults.value.splice(i, 1);
+}
+
+const refreshInterval = ref();
+
+function autoSave() {
+  localStorage.setItem('toolsinone.calculator', JSON.stringify(savedResults.value));
+}
+
+function loadSave() {
+  const existing = localStorage.getItem('toolsinone.calculator');
+  if (existing) {
+    savedResults.value = JSON.parse(existing);
+  } else {
+    savedResults.value = [];
+  }
+}
+
+onMounted(() => {
+  loadSave();
+  refreshInterval.value = setInterval(autoSave, 60000);
+});
+
+onBeforeUnmount(() => {
+  clearInterval(refreshInterval.value);
+});
 </script>
 
 <template>
@@ -72,11 +123,19 @@ function copyResult() {
         <div class="output-field">
           <div class="heading">Result:</div>
 
-          <button
-            v-if="result"
-            class="btn"
-            @click="copyResult"
-          >📋</button>
+          <div class="actions">
+            <button
+              v-if="result"
+              class="btn"
+              @click="copyResult"
+            >📋</button>
+
+            <button
+              v-if="result"
+              class="btn"
+              @click="saveResult"
+            >💾</button>
+          </div>
 
           <div
             :class="tooltipClass"
@@ -87,8 +146,47 @@ function copyResult() {
 {{ result }}
             </code>
           </pre>
-        </div>
-      </div>
+        </div> <!-- output-field -->
+
+        <div class="history">
+          <div class="title">Recently saved</div>
+
+          <div
+            v-for="(saved, i) in savedResults"
+            :key="i"
+            class="results"
+          >
+            <div class="result">
+              <div
+                class="clickable"
+                @click="copyText(saved.input)"
+              >
+                {{ saved.input }}
+                <span class="tooltip">Copy input</span>
+              </div >
+              =
+              <div
+                class="clickable"
+                @click="copyText(saved.result)"
+              >
+                {{ saved.result }}
+                <span class="tooltip">Copy result</span>
+              </div>
+
+              <div
+                class="action"
+                @click="unsaveResult(i)"
+              >❌</div>
+            </div> <!-- result -->
+          </div> <!-- results -->
+
+          <div
+            :class="historyTooltipClass"
+          >
+            Copied!
+          </div>
+        </div> <!-- history -->
+      </div> <!-- body -->
     </template>
   </ToolWindow>
 </template>
@@ -115,9 +213,10 @@ function copyResult() {
 }
 
 .body .output-field pre {
-  padding: 1rem;
+  padding: 0 1rem;
   width: 100%;
-  overflow: auto;
+  height: 4rem;
+  overflow: hidden;
   border: 1px solid var(--color-border);
   border-radius: 4px;
 }
@@ -126,7 +225,7 @@ function copyResult() {
   font-size: 0.8rem;
 }
 
-.body .output-field .btn {
+.body .output-field .actions {
   position: absolute;
   top: 2rem;
   right: 1rem;
@@ -149,6 +248,79 @@ function copyResult() {
 }
 
 .body .output-field .tooltip.show {
+  display: inline-block;
+}
+
+.body .history {
+  position: relative;
+}
+
+.body .history .title {
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.body .history .results .result {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.body .history .results .result .clickable:hover {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.body .history .results .result .clickable {
+  position: relative;
+}
+
+.body .history .results .result .clickable .tooltip {
+  position: absolute;
+  top: 1rem;
+  left: 2rem;
+  display: none;
+  padding: 0.5rem;
+  width: 100px;
+  text-align: center;
+  font-size: 0.8rem;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  opacity: 0.8;
+  z-index: 1;
+}
+
+.body .history .results .result .clickable:hover .tooltip {
+  display: inline-block;
+}
+
+.body .history .results .result .action {
+  font-size: 0.7rem;
+}
+
+.body .history .results .result .action:hover {
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.body .history .tooltip {
+  display: none;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  opacity: 0.8;
+  z-index: 1;
+}
+
+.body .history .tooltip.show {
   display: inline-block;
 }
 </style>
