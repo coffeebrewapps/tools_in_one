@@ -50,7 +50,7 @@ import { RouterLink } from 'vue-router';
       </div>
 
       <div class="link">
-        <img src="/minus.png" />
+        <img src="/plus.png" />
         <a
           href="https://www.flaticon.com/free-icons/plus"
           title="plus icons"
