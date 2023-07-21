@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite client",
-    "build": "vite build client",
+    "build": "vite build client && cp _headers client/dist/_headers",
     "preview": "vite preview client",
     "test:unit": "vitest client",
     "lint": "eslint client --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
