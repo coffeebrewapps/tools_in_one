@@ -51,8 +51,19 @@ onBeforeUnmount(() => {
     class="theme-toggle"
     @click="toggleTheme"
   >
-    <div v-if="!theme">☀️</div>
-    <div v-if="theme">🌙</div>
+    <div
+      v-if="!theme"
+      class="icon"
+    >
+      <img src="/sun.png" />
+    </div>
+
+    <div
+      v-if="theme"
+      class="icon"
+    >
+      <img src="/moon.png" />
+    </div>
   </div>
 </template>
 
@@ -70,6 +81,10 @@ onBeforeUnmount(() => {
 .theme-toggle:hover {
   cursor: pointer;
   opacity: 0.5;
+}
+
+.theme-toggle .icon img {
+  width: 1.5rem;
 }
 
 @media (min-width: 1024px) {
