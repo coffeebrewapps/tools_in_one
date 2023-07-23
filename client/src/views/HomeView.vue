@@ -213,23 +213,23 @@ onBeforeUnmount(() => {
     <header>
       <nav>
         <a @click="showWindow('jsonformatter')">
-          📃 JSON Formatter
+          <img src="/notepad.png" /> JSON Formatter
         </a>
 
         <a @click="showWindow('colorcodes')">
-          📃 Color Code
+          <img src="/notepad.png" /> Color Code
         </a>
 
         <a @click="showWindow('htmlformatter')">
-          📃 HTML Formatter
+          <img src="/notepad.png" /> HTML Formatter
         </a>
 
         <a @click="showWindow('calculator')">
-          📃 Calculator
+          <img src="/notepad.png" /> Calculator
         </a>
 
         <a @click="showWindow('uuidgenerator')">
-          📃 UUID Generator
+          <img src="/notepad.png" /> UUID Generator
         </a>
       </nav>
     </header>
@@ -278,11 +278,18 @@ onBeforeUnmount(() => {
 }
 
 .container header nav a {
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 0;
 }
 
 .container header nav a:hover {
   cursor: pointer;
+}
+
+.container header nav a img {
+  width: 1rem;
 }
 
 @media (min-width: 1024px) {

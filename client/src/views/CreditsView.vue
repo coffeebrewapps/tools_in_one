@@ -100,6 +100,16 @@ import { RouterLink } from 'vue-router';
           target="_blank"
         >Save Icon</a>
       </div>
+
+      <div class="link">
+        <img src="/notepad.png" />
+        <a
+          href="https://www.flaticon.com/free-icons/note"
+          title="note icons"
+          alt="Note icons created by Freepik - Flaticon"
+          target="_blank"
+        >Notepad Icon</a>
+      </div>
     </div>
 
     <div class="link">
